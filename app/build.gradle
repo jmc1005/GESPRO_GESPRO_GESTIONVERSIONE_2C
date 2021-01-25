@@ -20,6 +20,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
 // Get signing config
 def keystorePropertiesFile = rootProject.file("secrets/keystore.properties")
@@ -31,20 +32,11 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
-    defaultConfig {
-        applicationId "com.davidmiguel.gobees"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 11
-        versionName "v1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                crashlyticsKey: keystoreProperties['CrashlyticsKey']
-        ]
-        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
-        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
-        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
-    }
+
+
+
+
+
 
     signingConfigs {
         debug {
@@ -59,6 +51,33 @@ android {
             keyAlias keystoreProperties['keyAliasRelease']
             keyPassword keystoreProperties['keyPasswordRelease']
         }
+    }
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = keystoreProperties['serviceAccountEmail']
+            jsonFile = file(keystoreProperties['googlePlayKey'])
+        }
+    }
+
+    play {
+        track = 'beta'
+    }
+
+    defaultConfig {
+        applicationId "com.davidmiguel.gobees"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                crashlyticsKey: keystoreProperties['CrashlyticsKey']
+        ]
+        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
+        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
+        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     buildTypes {
@@ -254,6 +273,16 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.jacoco.reportMissing.force.zero", true
     }
+}
+
+
+
+
+/**
+ *
+ */
+private static Integer getBuildNumber() {
+    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 1
 }
 
 /**
