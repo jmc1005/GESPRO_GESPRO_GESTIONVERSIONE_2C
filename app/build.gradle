@@ -209,12 +209,12 @@ dependencies {
     // JUnit (unit testing framework) : http://junit.org/junit4/
     testCompile 'junit:junit:4.12'
     // Mockito (mocking framework) : http://site.mockito.org/
-    testCompile 'org.mockito:mockito-core:2.10.0'
+    testCompile 'org.mockito:mockito-core:2.11.0'
     // PowerMock (mocking framework) : https://github.com/powermock/powermock
-    testCompile "org.powermock:powermock-module-junit4:1.7.1"
-    testCompile "org.powermock:powermock-api-mockito2:1.7.1"
-    testCompile 'org.slf4j:slf4j-api:1.7.22'
-    testCompile 'org.slf4j:slf4j-log4j12:1.7.22'
+    testCompile "org.powermock:powermock-module-junit4:1.7.3"
+    testCompile "org.powermock:powermock-api-mockito2:1.7.3"
+    testCompile 'org.slf4j:slf4j-api:1.7.25'
+    testCompile 'org.slf4j:slf4j-log4j12:1.7.25'
     testCompile 'log4j:log4j:1.2.17'
     testCompile 'org.json:json:20160810'
     // Android Testing Support Library's runner and rules
