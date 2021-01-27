@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:86284097953:android:85b12b21327f2b13",
         "android_client_info": {
-          "package_name": "com.davidmiguel.gobees.dev"
+          "package_name": "com.davidmiguel.gobees.mock"
         }
       },
       "oauth_client": [
